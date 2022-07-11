@@ -62,9 +62,48 @@ def staff(request):
             email= info["email"]
             edad= info["edad"]
             categoria= info["categoria"]
-            staff= Colaborador(nombre=nombre, email=email, edad=edad, categoria=categoria)
+            staff= Staff(nombre=nombre, email=email, edad=edad, categoria=categoria)
             staff.save()
             return render (request, "AppDiario/inicio.html")
     else:
         form= StaffForm()
     return render(request, "AppDiario/staff.html", {"form":form})
+
+def busquedaUsuario(request):
+
+    return render(request, "AppDiario/busquedaUsuario.html")
+
+def buscarUsuario(request):
+
+    if request.GET["nombre"]:
+        user= request.GET["nombre"]
+        usuario= Usuario.objects.filter(nombre=user)
+        return render(request, "AppDiario/resultadoBusqueda.html", {"usuario":usuario})
+    else:
+        return render(request, "AppDiario/busquedaUsuario.html", {"error":"No se ingreso ningun usuario"})
+
+def busquedaStaff(request):
+
+    return render(request, "AppDiario/busquedaStaff.html")
+
+def buscarStaff(request):
+
+    if request.GET["nombre"]:
+        user= request.GET["nombre"]
+        staff= Staff.objects.filter(nombre=user)
+        return render(request, "AppDiario/resultadoBusqueda.html", {"usuario":staff})
+    else:
+        return render(request, "AppDiario/busquedaStaff.html", {"error":"No se ingreso ningun miembro del staff"})
+
+def busquedaColaborador(request):
+
+    return render(request, "AppDiario/busquedaColaborador.html")
+
+def buscarColaborador(request):
+
+    if request.GET["nombre"]:
+        user= request.GET["nombre"]
+        colaborador= Colaborador.objects.filter(nombre=user)
+        return render(request, "AppDiario/resultadoBusqueda.html", {"usuario":colaborador})
+    else:
+        return render(request, "AppDiario/busquedaColaborador.html", {"error":"No se ingreso ningun colaborador"})

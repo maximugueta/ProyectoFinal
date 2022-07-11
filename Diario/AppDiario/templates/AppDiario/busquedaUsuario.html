@@ -1,0 +1,26 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1 class="text-white font-weight-bold"> BUSQUEDA DE USUARIO </h1>
+                        <hr class="divider" />
+
+
+    {% if form.errors %}
+    <p style="color:red"> HAY ALGO MAL EN EL FORMULARIO</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color:red"> {{ error }}</p>
+    {% endif %}
+    
+    <form action="{% url 'buscarUsuario' %}" method="GET"> 
+
+        <input type="text" name="nombre" id="usuario">
+
+        <p><input type="submit" value="buscar"></p>
+
+    </form>
+
+
+{% endblock %}  
