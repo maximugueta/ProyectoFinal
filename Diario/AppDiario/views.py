@@ -78,7 +78,7 @@ def buscarUsuario(request):
     if request.GET["nombre"]:
         user= request.GET["nombre"]
         usuario= Usuario.objects.filter(nombre=user)
-        return render(request, "AppDiario/resultadoBusqueda.html", {"usuario":usuario})
+        return render(request, "AppDiario/resultadoBusquedaUsuarios.html", {"usuario":usuario})
     else:
         return render(request, "AppDiario/busquedaUsuario.html", {"error":"No se ingreso ningun usuario"})
 
@@ -91,7 +91,7 @@ def buscarStaff(request):
     if request.GET["nombre"]:
         user= request.GET["nombre"]
         staff= Staff.objects.filter(nombre=user)
-        return render(request, "AppDiario/resultadoBusqueda.html", {"usuario":staff})
+        return render(request, "AppDiario/resultadoBusquedaStaff.html", {"staff":staff})
     else:
         return render(request, "AppDiario/busquedaStaff.html", {"error":"No se ingreso ningun miembro del staff"})
 
@@ -104,6 +104,6 @@ def buscarColaborador(request):
     if request.GET["nombre"]:
         user= request.GET["nombre"]
         colaborador= Colaborador.objects.filter(nombre=user)
-        return render(request, "AppDiario/resultadoBusqueda.html", {"usuario":colaborador})
+        return render(request, "AppDiario/resultadoBusquedaColaboradores.html", {"colaborador":colaborador})
     else:
         return render(request, "AppDiario/busquedaColaborador.html", {"error":"No se ingreso ningun colaborador"})
