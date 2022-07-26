@@ -21,6 +21,8 @@ def inicio(request):
 '''def colaborador(request):
     return render(request, "AppDiario/colaborador.html")'''
 
+#USUARIOS
+#Crear usuarios
 def usuarios(request):
 
     if (request.method=="POST"):
@@ -38,40 +40,7 @@ def usuarios(request):
         form= UsuarioForm()
     return render(request, "AppDiario/usuarios.html", {"form":form})  
 
-def colaborador(request):
-
-    if (request.method=="POST"):
-        form= ColaboradorForm(request.POST)
-        if form.is_valid():
-            info= form.cleaned_data
-            nombre= info["nombre"]
-            email= info["email"]
-            edad= info["edad"]
-            especialidad= info["especialidad"]
-            colaborador= Colaborador(nombre=nombre, email=email, edad=edad, especialidad=especialidad)
-            colaborador.save()
-            return render (request, "AppDiario/inicio.html")
-    else:
-        form= ColaboradorForm()
-    return render(request, "AppDiario/colaborador.html", {"form":form})  
-
-def staff(request):
-
-    if (request.method=="POST"):
-        form= StaffForm(request.POST)
-        if form.is_valid():
-            info= form.cleaned_data
-            nombre= info["nombre"]
-            email= info["email"]
-            edad= info["edad"]
-            categoria= info["categoria"]
-            staff= Staff(nombre=nombre, email=email, edad=edad, categoria=categoria)
-            staff.save()
-            return render (request, "AppDiario/inicio.html")
-    else:
-        form= StaffForm()
-    return render(request, "AppDiario/staff.html", {"form":form})
-
+#BUSQUEDA DE USUARIOS
 def busquedaUsuario(request):
 
     return render(request, "AppDiario/busquedaUsuario.html")
@@ -85,90 +54,7 @@ def buscarUsuario(request):
     else:
         return render(request, "AppDiario/busquedaUsuario.html", {"error":"No se ingreso ningun usuario"})
 
-def busquedaStaff(request):
-
-    return render(request, "AppDiario/busquedaStaff.html")
-
-def buscarStaff(request):
-
-    if request.GET["nombre"]:
-        user= request.GET["nombre"]
-        staff= Staff.objects.filter(nombre=user)
-        return render(request, "AppDiario/resultadoBusquedaStaff.html", {"staff":staff})
-    else:
-        return render(request, "AppDiario/busquedaStaff.html", {"error":"No se ingreso ningun miembro del staff"})
-
-def busquedaColaborador(request):
-
-    return render(request, "AppDiario/busquedaColaborador.html")
-
-def buscarColaborador(request):
-
-    if request.GET["nombre"]:
-        user= request.GET["nombre"]
-        colaborador= Colaborador.objects.filter(nombre=user)
-        return render(request, "AppDiario/resultadoBusquedaColaboradores.html", {"colaborador":colaborador})
-    else:
-        return render(request, "AppDiario/busquedaColaborador.html", {"error":"No se ingreso ningun colaborador"})
-
-def leerStaff(request):
-
-    staff= Staff.objects.all()
-    return render (request, "AppDiario/leerStaff.html", {"staff":staff})
-
-def eliminarStaff(request, miembro_staff):
-
-    miembro= Staff.objects.get(nombre=miembro_staff)
-    miembro.delete()
-    staff= Staff.objects.all()
-    return render(request, "AppDiario/leerStaff.html", {"staff":staff})
-
-def editarStaff(request, miembro_staff):
-
-    miembro= Staff.objects.get(nombre=miembro_staff)
-    if request.method == "POST":
-        form= StaffForm(request.POST)
-        if form.is_valid():
-            info= form.cleaned_data
-            staff.nombre= info["nombre"]
-            staff.email= info["email"]
-            staff.edad= info["edad"]
-            staff.categoria= info["categoria"]
-            staff.save()
-            return render(request, "AppDiario/inicio.html")
-    else:
-        form= StaffForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "categoria":miembro.categoria})
-    return render(request, "AppDiario/editarStaff.html", {"formulario":form, "miembro_staff":miembro_staff})
-
-def leerColaborador(request):
-
-    colaborador= Colaborador.objects.all()
-    return render (request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
-
-def eliminarColaborador(request, colab):
-
-    miembro= Colaborador.objects.get(nombre=colab)
-    miembro.delete()
-    colaborador= Colaborador.objects.all()
-    return render(request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
-
-def editarColaborador(request, colab):
-
-    miembro= Colaborador.objects.get(nombre=colab)
-    if request.method == "POST":
-        form= ColaboradorForm(request.POST)
-        if form.is_valid():
-            info= form.cleaned_data
-            colaborador.nombre= info["nombre"]
-            colaborador.email= info["email"]
-            colaborador.edad= info["edad"]
-            colaborador.especialidad= info["especialidad"]
-            colaborador.save()
-            return render(request, "AppDiario/inicio.html")
-    else:
-        form= ColaboradorForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "especialidad":miembro.especialidad})
-    return render(request, "AppDiario/editarColaborador.html", {"formulario":form, "colab":colab})
-
+#ELIMINAR Y EDITAR USUARIOS
 def leerUsuarios(request):
 
     usuario= Usuario.objects.all()
@@ -198,6 +84,145 @@ def editarUsuario(request, nombre_usuario):
         form= ColaboradorForm(initial={"nombre":user.nombre, "email":user.email, "edad":user.edad, "pais":user.pais})
     return render(request, "AppDiario/editarUsuario.html", {"formulario":form, "nombre_usuario":nombre_usuario})
 
+'''
+---------------------
+'''
+#COLABORADORES
+#CREAR COLABORADORES
+def colaborador(request):
+
+    if (request.method=="POST"):
+        form= ColaboradorForm(request.POST)
+        if form.is_valid():
+            info= form.cleaned_data
+            nombre= info["nombre"]
+            email= info["email"]
+            edad= info["edad"]
+            especialidad= info["especialidad"]
+            colaborador= Colaborador(nombre=nombre, email=email, edad=edad, especialidad=especialidad)
+            colaborador.save()
+            return render (request, "AppDiario/inicio.html")
+    else:
+        form= ColaboradorForm()
+    return render(request, "AppDiario/colaborador.html", {"form":form}) 
+
+#BUSCAR COLABORADORES
+def busquedaColaborador(request):
+
+    return render(request, "AppDiario/busquedaColaborador.html")
+
+def buscarColaborador(request):
+
+    if request.GET["nombre"]:
+        user= request.GET["nombre"]
+        colaborador= Colaborador.objects.filter(nombre=user)
+        return render(request, "AppDiario/resultadoBusquedaColaboradores.html", {"colaborador":colaborador})
+    else:
+        return render(request, "AppDiario/busquedaColaborador.html", {"error":"No se ingreso ningun colaborador"})
+
+#ELIMINAR Y EDITAR COLABORADORES
+def leerColaborador(request):
+
+    colaborador= Colaborador.objects.all()
+    return render (request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
+
+def eliminarColaborador(request, colab):
+
+    miembro= Colaborador.objects.get(nombre=colab)
+    miembro.delete()
+    colaborador= Colaborador.objects.all()
+    return render(request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
+
+def editarColaborador(request, colab):
+
+    miembro= Colaborador.objects.get(nombre=colab)
+    if request.method == "POST":
+        form= ColaboradorForm(request.POST)
+        if form.is_valid():
+            info= form.cleaned_data
+            colaborador.nombre= info["nombre"]
+            colaborador.email= info["email"]
+            colaborador.edad= info["edad"]
+            colaborador.especialidad= info["especialidad"]
+            colaborador.save()
+            return render(request, "AppDiario/inicio.html")
+    else:
+        form= ColaboradorForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "especialidad":miembro.especialidad})
+    return render(request, "AppDiario/editarColaborador.html", {"formulario":form, "colab":colab})
+
+'''
+--------------------------------
+'''
+
+#STAFF
+#CREAR STAFF
+
+def staff(request):
+
+    if (request.method=="POST"):
+        form= StaffForm(request.POST)
+        if form.is_valid():
+            info= form.cleaned_data
+            nombre= info["nombre"]
+            email= info["email"]
+            edad= info["edad"]
+            categoria= info["categoria"]
+            staff= Staff(nombre=nombre, email=email, edad=edad, categoria=categoria)
+            staff.save()
+            return render (request, "AppDiario/inicio.html")
+    else:
+        form= StaffForm()
+    return render(request, "AppDiario/staff.html", {"form":form})
+
+#BUSCAR STAFF
+
+def busquedaStaff(request):
+
+    return render(request, "AppDiario/busquedaStaff.html")
+
+def buscarStaff(request):
+
+    if request.GET["nombre"]:
+        user= request.GET["nombre"]
+        staff= Staff.objects.filter(nombre=user)
+        return render(request, "AppDiario/resultadoBusquedaStaff.html", {"staff":staff})
+    else:
+        return render(request, "AppDiario/busquedaStaff.html", {"error":"No se ingreso ningun miembro del staff"})
+
+#ELIMINAR Y EDITAR STAFF
+
+def leerStaff(request):
+
+    staff= Staff.objects.all()
+    return render (request, "AppDiario/leerStaff.html", {"staff":staff})
+
+def eliminarStaff(request, miembro_staff):
+
+    miembro= Staff.objects.get(nombre=miembro_staff)
+    miembro.delete()
+    staff= Staff.objects.all()
+    return render(request, "AppDiario/leerStaff.html", {"staff":staff})
+
+def editarStaff(request, miembro_staff):
+
+    miembro= Staff.objects.get(nombre=miembro_staff)
+    if request.method == "POST":
+        form= StaffForm(request.POST)
+        if form.is_valid():
+            info= form.cleaned_data
+            staff.nombre= info["nombre"]
+            staff.email= info["email"]
+            staff.edad= info["edad"]
+            staff.categoria= info["categoria"]
+            staff.save()
+            return render(request, "AppDiario/inicio.html")
+    else:
+        form= StaffForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "categoria":miembro.categoria})
+    return render(request, "AppDiario/editarStaff.html", {"formulario":form, "miembro_staff":miembro_staff})
+'''
+----------------------------
+'''
+#LOGIN - REGISTER - PERFIL
 def login_request(request):
     
     if request.method == "POST":
@@ -248,6 +273,11 @@ def editarPerfil(request):
         formulario= UserEditForm(instance=usuario)
 
     return render(request, "AppDiario/editarPerfil.html", {"formulario":formulario, "usuario":usuario.username})
+
+'''
+------------------------
+'''
+#AVATAR
 
 def agregarAvatar(request):
     if request.method == "POST":
