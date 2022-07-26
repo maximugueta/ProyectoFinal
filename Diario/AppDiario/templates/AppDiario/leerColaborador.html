@@ -1,0 +1,30 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<h1 class="text-white font-weight-bold"> COLABORADORES </h1>
+                        <hr class="divider" />
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+
+{% for colaborador in colaborador %}
+
+<li>{{ colaborador }}</li>
+<button>
+    <a href="{% url 'eliminarColaborador' colaborador.nombre %}">Eliminar</a>
+</button>
+
+<button>
+    <a href="{% url 'editarColaborador' colaborador.nombre %}">Editar</a>
+</button>
+
+{% endfor %}
+<br>
+<a href="{% url 'colaboradores' %}">Agregar</a>
+
+
+
+{% endblock %}

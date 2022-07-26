@@ -31,6 +31,13 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuarios' %}">Usuarios</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'colaboradores' %}">Colaboradores</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'staff' %}">Staff</a></li>
+                        {% if not request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">LOGIN</a></li>
+                        {% else %}
+                        <img src="{{ imagen }}" alt="imagen de PERFIL"/>
+                        <p>Hola! {{request.user.username }}</p>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">LOGOUT</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
