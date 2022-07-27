@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from AppDiario.forms import UsuarioForm, ColaboradorForm, StaffForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -60,6 +61,7 @@ def leerUsuarios(request):
     usuario= Usuario.objects.all()
     return render (request, "AppDiario/leerUsuarios.html", {"usuario":usuario})
 
+@login_required
 def eliminarUsuario(request, nombre_usuario):
 
     user= Usuario.objects.get(nombre=nombre_usuario)
@@ -67,6 +69,7 @@ def eliminarUsuario(request, nombre_usuario):
     usuario= Usuario.objects.all()
     return render(request, "AppDiario/leerUsuarios.html", {"usuario":usuario})
 
+@login_required
 def editarUsuario(request, nombre_usuario):
     usuarios= Usuario.objects.get(nombre=nombre_usuario)
     if request.method=="POST":
@@ -83,9 +86,8 @@ def editarUsuario(request, nombre_usuario):
         form= UsuarioForm(initial={"nombre":usuarios.nombre, "email":usuarios.email, "edad":usuarios.edad, "pais":usuarios.pais})
     return render(request, "AppDiario/editarUsuario.html", {"formulario":form, "nombre_usuario":nombre_usuario})
 
-'''
----------------------
-'''
+#--------------------------------
+
 #COLABORADORES
 #CREAR COLABORADORES
 def colaborador(request):
@@ -125,6 +127,7 @@ def leerColaborador(request):
     colaborador= Colaborador.objects.all()
     return render (request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
 
+@login_required
 def eliminarColaborador(request, colab):
 
     miembro= Colaborador.objects.get(nombre=colab)
@@ -132,6 +135,7 @@ def eliminarColaborador(request, colab):
     colaborador= Colaborador.objects.all()
     return render(request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
 
+@login_required
 def editarColaborador(request, colab):
 
     miembro= Colaborador.objects.get(nombre=colab)
@@ -149,9 +153,7 @@ def editarColaborador(request, colab):
         form= ColaboradorForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "especialidad":miembro.especialidad})
     return render(request, "AppDiario/editarColaborador.html", {"formulario":form, "colab":colab})
 
-'''
---------------------------------
-'''
+#---------------------------------------------------
 
 #STAFF
 #CREAR STAFF
@@ -195,6 +197,8 @@ def leerStaff(request):
     staff= Staff.objects.all()
     return render (request, "AppDiario/leerStaff.html", {"staff":staff})
 
+
+@login_required
 def eliminarStaff(request, miembro_staff):
 
     miembro= Staff.objects.get(nombre=miembro_staff)
@@ -202,6 +206,7 @@ def eliminarStaff(request, miembro_staff):
     staff= Staff.objects.all()
     return render(request, "AppDiario/leerStaff.html", {"staff":staff})
 
+@login_required
 def editarStaff(request, miembro_staff):
 
     staff= Staff.objects.get(nombre=miembro_staff)
@@ -219,25 +224,29 @@ def editarStaff(request, miembro_staff):
         form= StaffForm(initial={"nombre":staff.nombre, "email":staff.email, "edad":staff.edad, "categoria":staff.categoria})
     return render(request, "AppDiario/editarStaff.html", {"formulario":form, "miembro_staff":miembro_staff})
 
-'''
-----------------------------
-'''
+
+#----------------------------
+
 #LOGIN - REGISTER - PERFIL
 def login_request(request):
     
-    if request.method == "POST":
+    if request.method=="POST":
         form= AuthenticationForm(request, data=request.POST)
+
         if form.is_valid():
-            usuario= request.POST["username"]
-            contra= request.POST["password"]
-            user= authenticate(username=usuario, password=contra)            
-            if user is not None:
-                login(request, user)
+            usu= request.POST['username']
+            contra= request.POST['password']
+            usuario=authenticate(username=usu, password=contra)     
+
+            if usuario is not None:
+                login(request, usuario)
                 return render(request, "AppDiario/inicio.html", {"form":form, "mensaje":f"Bienvenido {usuario}"})
             else:
-                return render(request, "AppDiario/login.html", {"form":form, "mensaje":f"Usuario o contraseña inconrrecta"})
+                return render(request, "AppDiario/login.html", {"form":form, "mensaje":f"Usuario o contraseña incorrecta"})
+
         else:
             return render(request, "AppDiario/login.html", {"form":form, "mensaje":f"FORMULARIO INVALIDO"})
+
     else:
         form= AuthenticationForm()
         return render(request, "AppDiario/login.html", {"form":form})
@@ -254,6 +263,7 @@ def register(request):
         form= UserRegisterForm()
     return render(request, "AppDiario/register.html", {"form":form})
 
+@login_required
 def editarPerfil(request):
 
     usuario= request.user
@@ -274,11 +284,11 @@ def editarPerfil(request):
 
     return render(request, "AppDiario/editarPerfil.html", {"formulario":formulario, "usuario":usuario.username})
 
-'''
-------------------------
-'''
+#------------------------------------------
+
 #AVATAR
 
+@login_required
 def agregarAvatar(request):
     if request.method == "POST":
         formulario=AvatarForm(request.POST, request.FILES)
@@ -294,6 +304,5 @@ def agregarAvatar(request):
         return render(request, "AppDiario/agregarAvatar.html", {"formulario":formulario, "usuario":request.user})
 
 
-'''
----------------------------
-'''
+#------------------------------------------------------
+ 
