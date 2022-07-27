@@ -68,9 +68,8 @@ def eliminarUsuario(request, nombre_usuario):
     return render(request, "AppDiario/leerUsuarios.html", {"usuario":usuario})
 
 def editarUsuario(request, nombre_usuario):
-
-    user= Usuario.objects.get(nombre=nombre_usuario)
-    if request.method == "POST":
+    usuarios= Usuario.objects.get(nombre=nombre_usuario)
+    if request.method=="POST":
         form= UsuarioForm(request.POST)
         if form.is_valid():
             info= form.cleaned_data
@@ -81,7 +80,7 @@ def editarUsuario(request, nombre_usuario):
             usuarios.save()
             return render(request, "AppDiario/inicio.html")
     else:
-        form= ColaboradorForm(initial={"nombre":user.nombre, "email":user.email, "edad":user.edad, "pais":user.pais})
+        form= UsuarioForm(initial={"nombre":usuarios.nombre, "email":usuarios.email, "edad":usuarios.edad, "pais":usuarios.pais})
     return render(request, "AppDiario/editarUsuario.html", {"formulario":form, "nombre_usuario":nombre_usuario})
 
 '''
@@ -140,11 +139,11 @@ def editarColaborador(request, colab):
         form= ColaboradorForm(request.POST)
         if form.is_valid():
             info= form.cleaned_data
-            colaborador.nombre= info["nombre"]
-            colaborador.email= info["email"]
-            colaborador.edad= info["edad"]
-            colaborador.especialidad= info["especialidad"]
-            colaborador.save()
+            miembro.nombre= info["nombre"]
+            miembro.email= info["email"]
+            miembro.edad= info["edad"]
+            miembro.especialidad= info["especialidad"]
+            miembro.save()
             return render(request, "AppDiario/inicio.html")
     else:
         form= ColaboradorForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "especialidad":miembro.especialidad})
@@ -205,7 +204,7 @@ def eliminarStaff(request, miembro_staff):
 
 def editarStaff(request, miembro_staff):
 
-    miembro= Staff.objects.get(nombre=miembro_staff)
+    staff= Staff.objects.get(nombre=miembro_staff)
     if request.method == "POST":
         form= StaffForm(request.POST)
         if form.is_valid():
@@ -217,8 +216,9 @@ def editarStaff(request, miembro_staff):
             staff.save()
             return render(request, "AppDiario/inicio.html")
     else:
-        form= StaffForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "categoria":miembro.categoria})
+        form= StaffForm(initial={"nombre":staff.nombre, "email":staff.email, "edad":staff.edad, "categoria":staff.categoria})
     return render(request, "AppDiario/editarStaff.html", {"formulario":form, "miembro_staff":miembro_staff})
+
 '''
 ----------------------------
 '''
@@ -292,3 +292,4 @@ def agregarAvatar(request):
     else:
         formulario=AvatarForm()
         return render(request, "AppDiario/agregarAvatar.html", {"formulario":formulario, "usuario":request.user})
+
