@@ -293,3 +293,7 @@ def agregarAvatar(request):
         formulario=AvatarForm()
         return render(request, "AppDiario/agregarAvatar.html", {"formulario":formulario, "usuario":request.user})
 
+
+'''
+---------------------------
+'''
