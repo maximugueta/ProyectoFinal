@@ -28,6 +28,7 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(template_name="AppDiario/logout.html"), name="logout" ),
     path("editarPerfil/", editarPerfil, name="editarPerfil" ),
     path("agregarAvatar/", agregarAvatar, name="agregarAvatar"),
+    
 
 
 
