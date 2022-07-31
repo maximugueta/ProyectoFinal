@@ -6,12 +6,12 @@ admin.site.register(Staff)
 admin.site.register(Colaborador)
 admin.site.register(Usuario)
 admin.site.register(Avatar)
-admin.site.register(Categoria)
+#admin.site.register(Categoria)
 
 @admin.register(Posteo)
 class AutorAdmin(admin.ModelAdmin):
-    list_display= ("titulo", "id", "estado", "slug", "autor")
-    prepopulated_fields= {"slug": ("titulo",) , }
+    list_display= ("titulo", "id", "autor")
+    
 
 @admin.register(Comentarios)
 class ComentariosAdmin(admin.ModelAdmin):

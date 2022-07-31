@@ -1,0 +1,34 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<h1 class="text-white font-weight-bold"> POST </h1>
+                        <hr class="divider" />
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+
+{% for posteo in posteo %}
+
+<li>{{ posteo.titulo }}</li>
+<li>{{ posteo.descripcion }}</li>
+<li>{{ posteo.contenido }}</li>
+<li>Publicado por {{ posteo.autor }}</li>
+<li>{{ posteo.publicado }}</li>
+<br>
+<button>
+    <a href="{% url 'eliminarPosteo' posteo.titulo %}">Eliminar</a>
+</button>
+
+<button>
+    <a href="{% url 'editarPosteo' posteo.titulo %}">Editar</a>
+</button>
+
+{% endfor %}
+
+
+
+
+{% endblock %}

@@ -1,9 +1,10 @@
+from ast import Delete
 from multiprocessing import context
 from django.shortcuts import render
 from .models import *
 from django.http import request
 from django.http import HttpResponse
-from AppDiario.forms import UsuarioForm, ColaboradorForm, StaffForm, UserRegisterForm, UserEditForm, AvatarForm
+from AppDiario.forms import UsuarioForm, ColaboradorForm, StaffForm, UserRegisterForm, UserEditForm, AvatarForm, PosteoForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -14,14 +15,6 @@ def inicio(request):
     imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
     return render(request, "AppDiario/inicio.html",{"imagen":imagen})
 
-'''def usuarios(request):
-    return render(request, "AppDiario/usuarios.html")'''
-
-'''def staff(request):
-    return render(request, "AppDiario/staff.html")'''
-
-'''def colaborador(request):
-    return render(request, "AppDiario/colaborador.html")'''
 
 #USUARIOS
 #Crear usuarios
@@ -307,3 +300,47 @@ def agregarAvatar(request):
 
 #------------------------------------------------------
  
+
+def leerPosteo(request):
+
+    posteo= Posteo.objects.all()
+    return render (request, "AppDiario/leerPosteo.html", {"posteo":posteo})
+
+def editarPosteo(request, post):
+
+    posteo= Posteo.objects.get(titulo=post)
+    if request.method == "POST":
+        form= PosteoForm(request.POST)
+        if form.is_valid():
+            info= form.cleaned_data
+            posteo.titulo= info["titulo"]
+            posteo.descripcion= info["descripcion"]
+            posteo.contenido= info["contenido"]
+            posteo.save()
+            return render(request, "AppDiario/leerPosteo.html")
+    else:
+        form= PosteoForm(initial={"titulo":posteo.titulo, "descripcion":posteo.descripcion, "contenido":posteo.contenido})
+    return render(request, "AppDiario/editarPosteo.html", {"formulario":form, "post":post})
+
+def eliminarPosteo(request, titulo):
+
+    posteo= Posteo.objects.get(titulo=titulo)
+    posteo.delete()
+    post= Posteo.objects.all()
+    return render(request, "AppDiario/leerPosteo.html", {"post":post})
+
+def nuevoPosteo(request):
+
+    if (request.method=="POST"):
+        form= PosteoForm(request.POST)
+        if form.is_valid():
+            info= form.cleaned_data
+            titulo= info["titulo"]
+            descripcion= info["descripcion"]
+            contenido= info["contenido"]
+            posteo= Posteo(titulo=titulo, descripcion=descripcion, contenido=contenido)
+            posteo.save()
+            return render (request, "AppDiario/leerPosteo.html")
+    else:
+        form= PosteoForm()
+    return render(request, "AppDiario/nuevoPosteo.html", {"form":form}) 

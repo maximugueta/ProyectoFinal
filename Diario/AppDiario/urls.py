@@ -30,6 +30,9 @@ urlpatterns = [
     path("agregarAvatar/", agregarAvatar, name="agregarAvatar"),
     
 
-
+    path('leerPosteo/', leerPosteo, name='leerPosteo'),
+    path('editarPosteo/<post>', editarPosteo, name="editarPosteo"),
+    path('elminarPosteo/<titulo>', eliminarPosteo, name="eliminarPosteo"),
+    path('nuevoPosteo/', nuevoPosteo, name="nuevoPosteoPosteo"),
 
 ]

@@ -37,31 +37,31 @@ class Avatar(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     imagen= models.ImageField(upload_to='avatares', null=True, blank=True)   
 
-class Categoria(models.Model):
+'''class Categoria(models.Model):
      name= models.CharField(max_length=100)
 
      def __str__(self) -> str:
-          return self.name
+          return self.name'''
 
 class Posteo(models.Model):
 
-    class ObjetosPublicados(models.Manager):
+    '''class ObjetosPublicados(models.Manager):
         
         def get_queryset(self):
             return super().get_queryset().filter(status="publicados")
         
-    opciones= (("borrador","borrador"),("publicado","publicado"))
+    opciones= (("borrador","borrador"),("publicado","publicado"))'''
 
-    categoria= models.ForeignKey(Categoria, on_delete=models.PROTECT, default=1)
+    #categoria= models.ForeignKey(Categoria, on_delete=models.PROTECT, default=1)
     titulo= models.CharField(max_length=100)
     descripcion= models.TextField(null=True)
     contenido= models.TextField()
-    slug= models.SlugField(max_length=250, unique_for_date="publicado", null=False, unique=True)
+    #slug= models.SlugField(max_length=250, unique_for_date="publicado", null=False, unique=True)
     publicado= models.DateTimeField(default=timezone.now)
     autor= models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_post")
-    estado= models.CharField(max_length=10, choices=opciones, default="borrador")
-    objetos= models.Manager()
-    objetos_publicados= ObjetosPublicados()
+    #estado= models.CharField(max_length=10, choices=opciones, default="borrador")
+    #objects= models.Manager()
+    #objetos_publicados= ObjetosPublicados()
 
     def __str__(self):
         return self.titulo
