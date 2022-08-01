@@ -1,3 +1,4 @@
+from pickle import TRUE
 from ssl import Options
 from django.db import models
 from django.contrib.auth.models import User
@@ -58,7 +59,7 @@ class Posteo(models.Model):
     contenido= models.TextField()
     #slug= models.SlugField(max_length=250, unique_for_date="publicado", null=False, unique=True)
     publicado= models.DateTimeField(default=timezone.now)
-    autor= models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_post")
+    autor= models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_post", null=TRUE)
     #estado= models.CharField(max_length=10, choices=opciones, default="borrador")
     #objects= models.Manager()
     #objetos_publicados= ObjetosPublicados()
