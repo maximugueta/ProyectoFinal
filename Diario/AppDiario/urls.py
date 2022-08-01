@@ -22,6 +22,7 @@ urlpatterns = [
     path('leerUsuarios/', leerUsuarios, name='leerUsuarios'),
     path('eliminarUsuario/<nombre_usuario>', eliminarUsuario, name="eliminarUsuario"),
     path('editarUsuario/<nombre_usuario>', editarUsuario, name="editarUsuario"),
+    path('posteo1/', posteo1, name="posteo1"),
 
     path('login/', login_request, name="login"),
     path('register/', register, name="register"),

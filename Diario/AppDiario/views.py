@@ -344,3 +344,11 @@ def nuevoPosteo(request):
     else:
         form= PosteoForm()
     return render(request, "AppDiario/nuevoPosteo.html", {"form":form}) 
+
+
+
+#POSTEOS
+
+def posteo1(request):
+
+    return render(request, "AppDiario/post_1.html")
