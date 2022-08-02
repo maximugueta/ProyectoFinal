@@ -57,7 +57,9 @@ class PosteoForm(forms.Form):
     descripcion= forms.CharField()
     contenido= forms.CharField()
     autor= forms.CharField(max_length=50)
-       
+    
+    class Meta:
+        model = User
 
 
     

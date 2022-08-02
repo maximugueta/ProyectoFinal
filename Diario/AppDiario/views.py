@@ -82,76 +82,32 @@ def editarUsuario(request, nombre_usuario):
 
 #--------------------------------
 
-#COLABORADORES
-#CREAR COLABORADORES
-def colaborador(request):
+#SECCIONES
+def ultimasnoticias(request):
 
-    if (request.method=="POST"):
-        form= ColaboradorForm(request.POST)
-        if form.is_valid():
-            info= form.cleaned_data
-            nombre= info["nombre"]
-            email= info["email"]
-            edad= info["edad"]
-            especialidad= info["especialidad"]
-            colaborador= Colaborador(nombre=nombre, email=email, edad=edad, especialidad=especialidad)
-            colaborador.save()
-            return render (request, "AppDiario/inicio.html")
-    else:
-        form= ColaboradorForm()
-    return render(request, "AppDiario/colaborador.html", {"form":form}) 
+    return render (request, "AppDiario/ultimasnoticias.html")
 
-#BUSCAR COLABORADORES
-def busquedaColaborador(request):
 
-    return render(request, "AppDiario/busquedaColaborador.html")
+def economia(request):
 
-def buscarColaborador(request):
+    return render (request, "AppDiario/economia.html")
 
-    if request.GET["nombre"]:
-        user= request.GET["nombre"]
-        colaborador= Colaborador.objects.filter(nombre=user)
-        return render(request, "AppDiario/resultadoBusquedaColaboradores.html", {"colaborador":colaborador})
-    else:
-        return render(request, "AppDiario/busquedaColaborador.html", {"error":"No se ingreso ningun colaborador"})
 
-#ELIMINAR Y EDITAR COLABORADORES
-def leerColaborador(request):
+def deportes(request):
 
-    colaborador= Colaborador.objects.all()
-    return render (request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
+    return render (request, "AppDiario/deportes.html")
 
-@login_required
-def eliminarColaborador(request, colab):
 
-    miembro= Colaborador.objects.get(nombre=colab)
-    miembro.delete()
-    colaborador= Colaborador.objects.all()
-    return render(request, "AppDiario/leerColaborador.html", {"colaborador":colaborador})
+def espectaculos(request):
 
-@login_required
-def editarColaborador(request, colab):
-
-    miembro= Colaborador.objects.get(nombre=colab)
-    if request.method == "POST":
-        form= ColaboradorForm(request.POST)
-        if form.is_valid():
-            info= form.cleaned_data
-            miembro.nombre= info["nombre"]
-            miembro.email= info["email"]
-            miembro.edad= info["edad"]
-            miembro.especialidad= info["especialidad"]
-            miembro.save()
-            return render(request, "AppDiario/inicio.html")
-    else:
-        form= ColaboradorForm(initial={"nombre":miembro.nombre, "email":miembro.email, "edad":miembro.edad, "especialidad":miembro.especialidad})
-    return render(request, "AppDiario/editarColaborador.html", {"formulario":form, "colab":colab})
+    return render (request, "AppDiario/espectaculos.html")
 
 #---------------------------------------------------
 
 #STAFF
 #CREAR STAFF
 
+@login_required
 def staff(request):
 
     if (request.method=="POST"):
@@ -171,6 +127,7 @@ def staff(request):
 
 #BUSCAR STAFF
 
+@login_required
 def busquedaStaff(request):
 
     return render(request, "AppDiario/busquedaStaff.html")
@@ -186,6 +143,7 @@ def buscarStaff(request):
 
 #ELIMINAR Y EDITAR STAFF
 
+@login_required
 def leerStaff(request):
 
     staff= Staff.objects.all()
