@@ -1,0 +1,24 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1 class="text-white font-weight-bold"> RESULTADO BUSQUEDA </h1>
+                        <hr class="divider" />
+
+
+    {% if usuario %}
+        
+        {% for usuarios in usuario %}
+            <p>{{ usuarios.nombre }}</p>
+            <p>{{ usuarios.email }}</p>
+            <p>{{ usuarios.edad }}</p>
+            <p>{{ usuarios.pais }}</p>
+            
+        {% endfor %}
+        
+        
+    {% else %}
+        <p>No hay usuarios con esa descripcion</p>
+    {% endif %}
+
+{% endblock %}  

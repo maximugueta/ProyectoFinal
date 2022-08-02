@@ -1,0 +1,23 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1 class="text-white font-weight-bold"> EDITAR PERFIL </h1>
+                        <hr class="divider" />
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h1> EDITAR PERFIL: {{ usuario }}</h1>
+
+<form action="{% url 'editarPerfil' %}" method="POST"> {% csrf_token %}
+
+        <table>
+            {{ formulario.as_table }}
+        </table>
+
+        <p><input type="submit" value="Enviar"></p>
+
+    </form>
+
+{% endblock %}

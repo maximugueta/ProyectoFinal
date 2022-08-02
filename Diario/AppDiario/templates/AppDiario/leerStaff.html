@@ -1,0 +1,30 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<h1 class="text-white font-weight-bold"> STAFF </h1>
+                        <hr class="divider" />
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+
+{% for staff in staff %}
+
+<li>{{ staff }}</li>
+<button>
+    <a href="{% url 'eliminarStaff' staff.nombre %}">Eliminar</a>
+</button>
+
+<button>
+    <a href="{% url 'editarStaff' staff.nombre %}">Editar</a>
+</button>
+
+{% endfor %}
+<br>
+<a href="{% url 'staff' %}">Agregar</a>
+
+
+
+{% endblock %}

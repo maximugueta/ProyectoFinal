@@ -1,0 +1,28 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1 class="text-white font-weight-bold">SECCION DE USUARIOS </h1>
+                        <hr class="divider" />
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
+    {% if form.errors %}
+    <p style="color:red"> HAY ALGO MAL EN EL FORMULARIO</p>
+    {% endif %}
+
+    <h1> PAGINA USUARIOS</h1>
+
+    <form action="/AppDiario/usuarios/" method="POST"> {% csrf_token %}
+
+        <table>
+            {{ form.as_table }}
+        </table>
+
+        <p><input type="submit" value="Enviar"></p>
+
+    </form>
+
+{% endblock %}
