@@ -10,12 +10,15 @@
 {% block contenido_que_cambia %}
 
 
+<button>
+<a href="{% url 'nuevoPosteo' %}">Nuevo Posteo</a>
+</button>
+<br>
 {% for posteo in posteo %}
 
 <li>{{ posteo.titulo }}</li>
 <li>{{ posteo.descripcion }}</li>
 <li>{{ posteo.contenido }}</li>
-<li>Publicado por {{ posteo.autor }}</li>
 <li>{{ posteo.publicado }}</li>
 <br>
 <button>

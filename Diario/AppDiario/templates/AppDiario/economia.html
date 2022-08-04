@@ -8,5 +8,23 @@
 
 {% block contenido_que_cambia %}
 
+{% for posteo_economia in posteo_economia %}
+
+<li>{{ posteo_economia.titulo }}</li>
+<li>{{ posteo_economia.descripcion }}</li>
+<li>{{ posteo_economia.contenido }}</li>
+<li>{{ posteo_economia.publicado }}</li>
+<br>
+<button>
+    <a href="{% url 'eliminarEconomia' posteo_economia.titulo %}">Eliminar</a>
+</button>
+
+<button>
+    <a href="{% url 'editarEconomia' posteo_economia.titulo %}">Editar</a>
+</button>
+
+{% endfor %}
+<br>
+<a href="{% url 'nuevoEconomia' %}">Nuevo Posteo</a>
 
 {% endblock %}

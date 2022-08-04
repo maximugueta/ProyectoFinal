@@ -77,3 +77,38 @@ class Comentarios(models.Model):
 
     def __str__(self):
         return f"Comentario de {self.nombre}"
+
+
+
+class PosteoEconomia(models.Model):
+
+    titulo= models.CharField(max_length=100)
+    descripcion= models.TextField(null=True)
+    contenido= models.TextField()
+    publicado= models.DateTimeField(default=timezone.now)
+    #autor= models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_post", null=TRUE)
+    
+    def __str__(self):
+        return self.titulo
+
+class PosteoDeportes(models.Model):
+
+    titulo= models.CharField(max_length=100)
+    descripcion= models.TextField(null=True)
+    contenido= models.TextField()
+    publicado= models.DateTimeField(default=timezone.now)
+    #autor= models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_post", null=TRUE)
+    
+    def __str__(self):
+        return self.titulo
+
+class PosteoEspectaculos(models.Model):
+
+    titulo= models.CharField(max_length=100)
+    descripcion= models.TextField(null=True)
+    contenido= models.TextField()
+    publicado= models.DateTimeField(default=timezone.now)
+    #autor= models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_post", null=TRUE)
+    
+    def __str__(self):
+        return self.titulo

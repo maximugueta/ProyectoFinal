@@ -1,7 +1,10 @@
+from pickle import TRUE
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
+from .models import *
+from django.http import request
 
 
 class UsuarioForm(forms.Form):
@@ -56,10 +59,26 @@ class PosteoForm(forms.Form):
     titulo= forms.CharField(max_length=100)
     descripcion= forms.CharField()
     contenido= forms.CharField()
-    autor= forms.CharField(max_length=50)
+
+class PosteoEconomiaForm(forms.Form):
+
+    titulo= forms.CharField(max_length=100)
+    descripcion= forms.CharField()
+    contenido= forms.CharField()
+
+class PosteoDeportesForm(forms.Form):
+
+    titulo= forms.CharField(max_length=100)
+    descripcion= forms.CharField()
+    contenido= forms.CharField()
+
+class PosteoEspectaculosForm(forms.Form):
+
+    titulo= forms.CharField(max_length=100)
+    descripcion= forms.CharField()
+    contenido= forms.CharField()
     
-    class Meta:
-        model = User
+    
 
 
     
