@@ -3,7 +3,8 @@ from .views import *
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('', inicio, name="inicio"),
+    path('', inicio, name="index"),
+    path('inicio/', inicio, name="inicio"),
     path("staff/", staff, name="staff"),
     path('ultimasnoticias/', ultimasnoticias, name="ultimasnoticias"),
     path('economia/', economia, name="economia"),
@@ -20,7 +21,6 @@ urlpatterns = [
     path('leerUsuarios/', leerUsuarios, name='leerUsuarios'),
     path('eliminarUsuario/<nombre_usuario>', eliminarUsuario, name="eliminarUsuario"),
     path('editarUsuario/<nombre_usuario>', editarUsuario, name="editarUsuario"),
-    path('posteo1/', posteo1, name="posteo1"),
 
     path('login/', login_request, name="login"),
     path('register/', register, name="register"),
@@ -29,9 +29,9 @@ urlpatterns = [
     path("agregarAvatar/", agregarAvatar, name="agregarAvatar"),
     
 
-    path('leerPosteo/', leerPosteo, name='leerPosteo'),
+    
     path('editarPosteo/<post>', editarPosteo, name="editarPosteo"),
-    path('elminarPosteo/<titulo>', eliminarPosteo, name="eliminarPosteo"),
+    path('eliminarPosteo/<titulo>', eliminarPosteo, name="eliminarPosteo"),
     path('nuevoPosteo/', nuevoPosteo, name="nuevoPosteoPosteo"),
 
 ]

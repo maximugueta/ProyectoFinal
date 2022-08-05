@@ -11,10 +11,11 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-def inicio(request):
-    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
-    return render(request, "AppDiario/inicio.html",{"imagen":imagen})
 
+def inicio(request):
+    posteo= Posteo.objects.all()
+    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    return render(request, "AppDiario/inicio.html",{"imagen":imagen, "posteo":posteo})
 
 #USUARIOS
 #Crear usuarios
@@ -84,23 +85,28 @@ def editarUsuario(request, nombre_usuario):
 
 #SECCIONES
 def ultimasnoticias(request):
-
-    return render (request, "AppDiario/ultimasnoticias.html")
+    posteo= Posteo.objects.all()
+    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    return render (request, "AppDiario/ultimasnoticias.html",{"imagen":imagen,"posteo":posteo})
+    
 
 
 def economia(request):
-
-    return render (request, "AppDiario/economia.html")
+    
+    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    return render (request, "AppDiario/economia.html",{"imagen":imagen})
 
 
 def deportes(request):
-
-    return render (request, "AppDiario/deportes.html")
+    
+    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    return render (request, "AppDiario/deportes.html",{"imagen":imagen})
 
 
 def espectaculos(request):
-
-    return render (request, "AppDiario/espectaculos.html")
+    
+    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    return render (request, "AppDiario/espectaculos.html",{"imagen":imagen})
 
 #---------------------------------------------------
 
@@ -258,11 +264,13 @@ def agregarAvatar(request):
 
 #------------------------------------------------------
  
-
+'''
 def leerPosteo(request):
 
     posteo= Posteo.objects.all()
-    return render (request, "AppDiario/leerPosteo.html", {"posteo":posteo})
+    return render (request, "AppDiario/ultimasnoticias.html", {"posteo":posteo})
+'''
+
 
 def editarPosteo(request, post):
 
@@ -275,7 +283,7 @@ def editarPosteo(request, post):
             posteo.descripcion= info["descripcion"]
             posteo.contenido= info["contenido"]
             posteo.save()
-            return render(request, "AppDiario/leerPosteo.html")
+            return render(request, "AppDiario/ultimasnoticias.html")
     else:
         form= PosteoForm(initial={"titulo":posteo.titulo, "descripcion":posteo.descripcion, "contenido":posteo.contenido})
     return render(request, "AppDiario/editarPosteo.html", {"formulario":form, "post":post})
@@ -285,7 +293,7 @@ def eliminarPosteo(request, titulo):
     posteo= Posteo.objects.get(titulo=titulo)
     posteo.delete()
     post= Posteo.objects.all()
-    return render(request, "AppDiario/leerPosteo.html", {"post":post})
+    return render(request, "AppDiario/ultimasnoticias.html", {"post":post})
 
 def nuevoPosteo(request):
 
@@ -302,11 +310,3 @@ def nuevoPosteo(request):
     else:
         form= PosteoForm()
     return render(request, "AppDiario/nuevoPosteo.html", {"form":form}) 
-
-
-
-#POSTEOS
-
-def posteo1(request):
-
-    return render(request, "AppDiario/post_1.html")

@@ -1,12 +1,31 @@
 {% extends "AppDiario/padre.html" %}
 {% load static %}
 
-{% block titulo %}
-<h1 class="text-white font-weight-bold">DEPORTES</h1>
-                        <hr class="divider" />
+{% block encabezado %}
+<header class="masthead" style="background-image: url('static/NuevaCarpeta/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    {% block titulo %}
+                    <h1>DEPORTES</h1>
+                    <span class="subheading">lo ultimo sobre deportes</span>
+                    {% endblock %}    
+                </div>
+            </div>
+        </div>
+    </div> 
+</header>
 {% endblock %}
 
 {% block contenido_que_cambia %}
 
-
+<hr class="divider" />
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="/">Volver →</a></div>
+        </div>
+    </div>
+</div>
 {% endblock %}

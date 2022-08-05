@@ -1,12 +1,64 @@
 {% extends "AppDiario/padre.html" %}
 {% load static %}
 
-{% block titulo %}
-<h1 class="text-white font-weight-bold">ULTIMAS NOTICIAS</h1>
+{% block encabezado %}
+    <header class="masthead" style="background-image: url('NuevaCarpeta/assets/img/post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        {% block titulo %}
+                        <h1>ULTIMAS NOTICIAS</h1>
+                        <span class="subheading">posteos nuevos</span>
                         <hr class="divider" />
+                        {% endblock %}    
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </header>
 {% endblock %}
 
 {% block contenido_que_cambia %}
 
 
+{% for posteo in posteo %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            <div class="post-preview">
+                    <h2 class="post-title"> {{ posteo.titulo }} </h2>
+                    <h5 class="post-subtitle"> {{ posteo.descripcion }} </h5>
+                    
+                
+                <p class="post-meta">
+                    Posted by
+                    <a href="#!">{{ posteo.autor }}</a>
+                    {{ posteo.publicado }}
+                </p>
+                
+                {{ posteo.contenido }}
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="divider" />
+
+{% endfor %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="/">Volver →</a></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+<button>
+    <a href="{% url 'eliminarPosteo' posteo.titulo %}">Eliminar</a>
+</button>
+
+<button>
+    <a href="{% url 'editarPosteo' posteo.titulo %}">Editar</a>
+</button>
