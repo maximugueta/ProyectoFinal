@@ -5,7 +5,7 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('', inicio, name="inicio"),
     path("staff/", staff, name="staff"),
-    path('ultimasnoticias/', ultimasnoticias, name="ultimasnoticias"),
+    #path('ultimasnoticias/', ultimasnoticias, name="ultimasnoticias"),
     #path('economia/', economia, name="economia"),
     #path('deportes/', deportes, name="deportes"),
     #path('espectaculos/', espectaculos, name="espectaculos"),
@@ -33,6 +33,11 @@ urlpatterns = [
     path('editarPosteo/<post>', editarPosteo, name="editarPosteo"),
     path('elminarPosteo/<titulo>', eliminarPosteo, name="eliminarPosteo"),
     path('nuevoPosteo/', nuevoPosteo, name="nuevoPosteo"),
+#ULTIMAS NOTICIAS
+    path('ultimasnoticias/', leerUltimasNoticias, name='ultimasnoticias'),
+    path('editarUltimasNoticias/<post>', editarUltimasNoticias, name="editarUltimasNoticias"),
+    path('elminarUltimasNoticias/<titulo>', eliminarUltimasNoticias, name="eliminarUltimasNoticias"),
+    path('nuevoUltimasNoticias/', nuevoUltimasNoticias, name="nuevoUltimasNoticias"),
 #ECONOMIA
     path('economia/', leerEconomia, name='economia'),
     path('editarEconomia/<post>', editarEconomia, name="editarEconomia"),
@@ -48,4 +53,5 @@ urlpatterns = [
     path('editarEspectaculos/<post>', editarEspectaculos, name="editarEspectaculos"),
     path('elminarEspectaculos/<titulo>', eliminarEspectaculos, name="eliminarEspectaculos"),
     path('nuevoEspectaculos/', nuevoEspectaculos, name="nuevoEspectaculos"),
+
 ]

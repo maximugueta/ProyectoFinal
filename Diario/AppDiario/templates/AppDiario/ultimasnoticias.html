@@ -8,5 +8,24 @@
 
 {% block contenido_que_cambia %}
 
+{% for posteo_ultimasNoticias in posteo_ultimasNoticias %}
+
+<li>{{ posteo_ultimasNoticias.titulo }}</li>
+<li>{{ posteo_ultimasNoticias.descripcion }}</li>
+<li>{{ posteo_ultimasNoticias.contenido }}</li>
+<li>Autor: {{ posteo_ultimasNoticias.autor }}</li>
+<li>{{ posteo_ultimasNoticias.publicado }}</li>
+<br>
+<button>
+    <a href="{% url 'eliminarUltimasNoticias' posteo_ultimasNoticias.titulo %}">Eliminar</a>
+</button>
+
+<button>
+    <a href="{% url 'editarUltimasNoticias' posteo_ultimasNoticias.titulo %}">Editar</a>
+</button>
+
+{% endfor %}
+<br>
+<a href="{% url 'nuevoUltimasNoticias' %}">Nuevo Posteo</a>
 
 {% endblock %}

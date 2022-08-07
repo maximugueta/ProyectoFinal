@@ -12,9 +12,9 @@
     <p style="color:red"> HAY ALGO MAL EN EL FORMULARIO</p>
     {% endif %}
 
-    <h1> CREAR NUEVO POSTEO DE ESPECTACULOS</h1>
+    <h1> CREAR NUEVO POSTEO DE ULTIMAS NOTICIAS</h1>
 
-    <form action="/AppDiario/nuevoEspectaculos/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <form action="/AppDiario/nuevoUltimasNoticias/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
         <table>
             {{ form.as_table }}

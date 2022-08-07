@@ -14,7 +14,7 @@
 
     <h1> CREAR NUEVO POSTEO DE DEPORTES</h1>
 
-    <form action="/AppDiario/nuevoDeportes/" method="POST"> {% csrf_token %}
+    <form action="/AppDiario/nuevoDeportes/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
         <table>
             {{ form.as_table }}

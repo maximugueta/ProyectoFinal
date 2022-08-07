@@ -7,6 +7,7 @@ from .models import *
 from django.http import request
 
 
+
 class UsuarioForm(forms.Form):
     nombre=forms.CharField(max_length=50)
     email=forms.EmailField()
@@ -60,6 +61,12 @@ class PosteoForm(forms.Form):
     descripcion= forms.CharField()
     contenido= forms.CharField()
 
+class PosteoUltimasNoticiasForm(forms.Form):
+
+    titulo= forms.CharField(max_length=100)
+    descripcion= forms.CharField()
+    contenido= forms.CharField()
+
 class PosteoEconomiaForm(forms.Form):
 
     titulo= forms.CharField(max_length=100)
@@ -71,6 +78,8 @@ class PosteoDeportesForm(forms.Form):
     titulo= forms.CharField(max_length=100)
     descripcion= forms.CharField()
     contenido= forms.CharField()
+    foto= forms.FileField(widget=forms.ClearableFileInput(), required=False)
+
 
 class PosteoEspectaculosForm(forms.Form):
 

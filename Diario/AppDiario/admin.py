@@ -9,6 +9,7 @@ admin.site.register(Avatar)
 admin.site.register(PosteoEconomia)
 admin.site.register(PosteoDeportes)
 admin.site.register(PosteoEspectaculos)
+admin.site.register(PosteoUltimasNoticias)
 #admin.site.register(Categoria)
 
 @admin.register(Posteo)
