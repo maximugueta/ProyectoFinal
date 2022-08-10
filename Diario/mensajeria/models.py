@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
+
+
 class Msj(models.Model):
     asunto= models.CharField(max_length=75)
     emisor= models.ForeignKey(User, on_delete=models.CASCADE) 

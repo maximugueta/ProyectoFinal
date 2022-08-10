@@ -4,6 +4,7 @@ from AppDiario.models import Avatar
 from django.contrib.auth.models import User
 from .forms import *
 from django.shortcuts import render
+from pickle import TRUE
 
 
 
@@ -27,9 +28,10 @@ def nuevoMensaje(request):
         form= MensajeForm()
     return render(request, "mensajeria/mensajes.html", {"form":form})
 
-def verMensajes(request):    
+def verMensajes(request):
+    user= request.user        
     imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url  
-    mensaje= Msj.objects.all()
+    mensaje= Msj.objects.filter(destinatario= user)
     return render (request, "mensajeria/verMensajes.html", {"mensaje":mensaje, "imagen":imagen})
 
 def eliminarMensaje(request, asunto):

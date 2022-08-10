@@ -15,10 +15,7 @@
 <p>Enviado por {{ mensaje.emisor }}</p>
 <p>{{ mensaje.fecha_enviado }}</p>
 <br>
-<button>
-    <a href="{% url 'contestarMensaje' mensaje.asunto %}">Contestar</a>
-</button>
-<br>
+
 <button>
     <a href="{% url 'eliminarMensaje' mensaje.asunto %}">Eliminar</a>
 </button>
