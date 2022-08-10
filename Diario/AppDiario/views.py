@@ -1,4 +1,5 @@
 from ast import Delete
+from email.mime import image
 from multiprocessing import context
 from django.shortcuts import render
 from .models import *
@@ -194,7 +195,8 @@ def login_request(request):
 
             if usuario is not None:
                 login(request, usuario)
-                return render(request, "AppDiario/inicio.html", {"form":form, "mensaje":f"Bienvenido {usuario}"})
+                imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppDiario/inicio.html", {"form":form, "mensaje":f"Bienvenido {usuario}", "imagen":imagen})
             else:
                 return render(request, "AppDiario/login.html", {"form":form, "mensaje":f"Usuario o contraseña incorrecta"})
 
@@ -248,8 +250,10 @@ def agregarAvatar(request):
         formulario=AvatarForm(request.POST, request.FILES)
         if formulario.is_valid():
             avatarViejo=Avatar.objects.get(user=request.user)
-            if(avatarViejo.imagen):
-                avatarViejo.delete()
+            if (avatarViejo != ''):
+                if(avatarViejo.imagen):
+                    avatarViejo.delete()
+
             avatar = Avatar (user=request.user, imagen=formulario.cleaned_data["imagen"])
             avatar.save()
             return render(request, "AppDiario/inicio.html", {"usuario":request.user, "mensaje":"AVATAR AGREGADO CON EXITO"})
@@ -322,6 +326,7 @@ def leerUltimasNoticias(request):
 
 def editarUltimasNoticias(request, post):
     imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    
 
     posteo_ultimasNoticias= PosteoUltimasNoticias.objects.get(titulo=post)
     if request.method == "POST":
@@ -435,7 +440,6 @@ def editarDeportes(request, post):
             posteo_deportes.titulo= info["titulo"]
             posteo_deportes.descripcion= info["descripcion"]
             posteo_deportes.contenido= info["contenido"]
-            posteo_deportes.autor= info["autor"]
             posteo_deportes.save()
            
             return render(request, "AppDiario/deportes.html", {"imagen":imagen})

@@ -1,0 +1,33 @@
+{% extends "AppDiario/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+<h1 class="text-white font-weight-bold">CASILLA DE MENSAJES</h1>
+                        <hr class="divider" />
+{% endblock %}
+
+{% block contenido_que_cambia %}
+<h1>Bienvenido!!</h1>
+{% for mensaje in mensaje %}
+<p>Destinatario: {{ mensaje.destinatario }}</p>
+<p>Asunto: {{ mensaje.asunto }}</p>
+<p>{{ mensaje.cuerpo }}</p>
+<p>Enviado por {{ mensaje.emisor }}</p>
+<p>{{ mensaje.fecha_enviado }}</p>
+<br>
+<button>
+    <a href="{% url 'contestarMensaje' mensaje.asunto %}">Contestar</a>
+</button>
+<br>
+<button>
+    <a href="{% url 'eliminarMensaje' mensaje.asunto %}">Eliminar</a>
+</button>
+
+
+
+
+{% endfor %}
+<br>
+<a href="{% url 'nuevoMensaje' %}">Nuevo Mensaje</a>
+
+{% endblock %}

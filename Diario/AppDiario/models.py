@@ -107,6 +107,7 @@ class PosteoDeportes(models.Model):
     
     titulo= models.CharField(max_length=150)
     descripcion= RichTextField(null=True)
+    foto= models.ImageField(upload_to='imagenes', null=True, blank=True)
     contenido= RichTextField()
     publicado= models.DateTimeField(default=timezone.now)
     autor= models.ForeignKey(User, on_delete=models.CASCADE,null=TRUE)
@@ -117,7 +118,7 @@ class PosteoDeportes(models.Model):
 class PosteoEspectaculos(models.Model):
 
     titulo= models.CharField(max_length=100)
-    descripcion= models.TextField(null=True)
+    descripcion= models.TextField(null=True)    
     contenido= models.TextField()
     publicado= models.DateTimeField(default=timezone.now)
     autor= models.ForeignKey(User, on_delete=models.CASCADE,null=TRUE)
@@ -126,4 +127,8 @@ class PosteoEspectaculos(models.Model):
         return self.titulo
 
 class Imagen(models.Model):
+    
     imagen= models.ImageField(upload_to='imagenes', null=True, blank=True)  
+
+
+   
